@@ -6,17 +6,17 @@ import jakarta.validation.constraints.NotBlank;
 
 class RegisterRequest {
 
-    @NotBlank
+    @NotBlank(message = "Username should not be blank")
     private String username;
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email should not be blank")
+    @Email(message = "Email has wrong format")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Password should not be blank")
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "Password confirmation should not be blank")
     @JsonProperty("password_confirmation")
     private String passwordConfirmation;
 

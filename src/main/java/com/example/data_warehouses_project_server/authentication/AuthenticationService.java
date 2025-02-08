@@ -3,6 +3,7 @@ package com.example.data_warehouses_project_server.authentication;
 import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -61,20 +62,18 @@ class AuthenticationService {
         return jwt;
     }
 
-    // TODO: Declare a custom exception instead of IllegalState, that should return 401 - Unauthorized
-
     @Transactional
     public AuthenticationResponse register(RegisterRequest request) {
         if (this.accountRepository.findByUsername(request.getUsername()).isPresent()) {
-            throw new IllegalStateException("Username taken");
+            throw new UsernameNotFoundException("Username taken");
         }
 
         if (this.accountRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new IllegalStateException("Email taken");
+            throw new UsernameNotFoundException("Email taken");
         }
 
         if (!request.getPassword().equals(request.getPasswordConfirmation())) {
-            throw new IllegalStateException("Passwords don't match");
+            throw new UsernameNotFoundException("Passwords don't match");
         }
 
         Account user = this.accountRepository.save(new Account(
@@ -92,7 +91,7 @@ class AuthenticationService {
     @Transactional
     public AuthenticationResponse login(LoginRequest request) {
         Account user = this.accountRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new IllegalStateException("Username or password wrong"));
+                .orElseThrow(() -> new UsernameNotFoundException("Username or password wrong"));
 
         String jwt = authenticate(user, request.getPassword());
 
