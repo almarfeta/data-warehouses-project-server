@@ -16,12 +16,20 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-class JwtService {
+public class JwtService {
 
     @Value("${project.jwt.secret-key}")
     private String secretKey;
 
-    String extractUsername(String token) {
+    public String extractJwt(String bearerToken) {
+        if (!bearerToken.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Not a bearer token");
+        }
+
+        return bearerToken.substring(7);
+    }
+
+    public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 

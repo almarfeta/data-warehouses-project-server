@@ -11,21 +11,21 @@ class Token {
     @SequenceGenerator(name = "tokenSequence", sequenceName = "tokens_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tokenSequence")
     @Column(updatable = false)
-    public Long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
-    public String token;
+    private String token;
 
     @Column(nullable = false)
-    public boolean revoked;
+    private boolean revoked;
 
     @Column(nullable = false)
-    public boolean expired;
+    private boolean expired;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
-    public Account account;
+    private Account account;
 
     public Token() {
     }
