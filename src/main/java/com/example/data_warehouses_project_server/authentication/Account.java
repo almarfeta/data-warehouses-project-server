@@ -1,5 +1,6 @@
 package com.example.data_warehouses_project_server.authentication;
 
+import com.example.data_warehouses_project_server.product.Product;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity(name = "account")
 @Table(name = "accounts")
-class Account implements UserDetails {
+public class Account implements UserDetails {
 
     @Id
     @SequenceGenerator(name = "accountSequence", sequenceName = "accounts_sequence", allocationSize = 1)
@@ -32,6 +33,9 @@ class Account implements UserDetails {
 
     @OneToMany(mappedBy = "account", orphanRemoval = true)
     private List<Token> tokens;
+
+    @OneToMany(mappedBy = "creator", orphanRemoval = true)
+    private List<Product> products;
 
     public Account() {
     }
@@ -116,5 +120,13 @@ class Account implements UserDetails {
 
     public void setTokens(List<Token> tokens) {
         this.tokens = tokens;
+    }
+
+    public List<Product> getProducts() {
+        return this.products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

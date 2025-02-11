@@ -1,12 +1,14 @@
 package com.example.data_warehouses_project_server.product;
 
+import com.example.data_warehouses_project_server.authentication.Account;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
 @Entity(name = "product")
 @Table(name = "products")
-class Product {
+public class Product {
 
     @Id
     @SequenceGenerator(name = "productSequence", sequenceName = "products_sequence", allocationSize = 1)
@@ -25,14 +27,20 @@ class Product {
     @Column(nullable = false)
     private Integer stock;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
+    private Account creator;
+
     public Product() {
     }
 
-    Product(String name, String description, BigDecimal price, Integer stock) {
+    Product(String name, String description, BigDecimal price, Integer stock, Account creator) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
+        this.creator = creator;
     }
 
     public Long getId() {
@@ -73,5 +81,13 @@ class Product {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public Account getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Account creator) {
+        this.creator = creator;
     }
 }

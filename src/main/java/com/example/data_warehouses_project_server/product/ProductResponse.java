@@ -14,17 +14,19 @@ class ProductResponse {
     private String description;
     private BigDecimal price;
     private Integer stock;
+    private String creatorUsername;
 
     ProductResponse(String message) {
         this.message = message;
     }
 
-    ProductResponse(Long id, String name, String description, BigDecimal price, Integer stock) {
+    ProductResponse(Long id, String name, String description, BigDecimal price, Integer stock, String creatorUsername) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.stock = stock;
+        this.creatorUsername = creatorUsername;
     }
 
     public String getMessage() {
@@ -73,5 +75,13 @@ class ProductResponse {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public String getCreatorUsername() {
+        return creatorUsername;
+    }
+
+    public void setCreatorUsername(String creatorUsername) {
+        this.creatorUsername = creatorUsername;
     }
 }

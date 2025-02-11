@@ -1,8 +1,10 @@
 package com.example.data_warehouses_project_server.product;
 
 import com.example.data_warehouses_project_server.authentication.JwtService;
-import jakarta.validation.Valid;
+import com.example.data_warehouses_project_server.markers.OnCreate;
+import com.example.data_warehouses_project_server.markers.OnUpdate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -31,7 +33,8 @@ class ProductController {
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
-                product.getStock()
+                product.getStock(),
+                product.getCreator().getUsername()
         ));
     }
 
@@ -50,7 +53,8 @@ class ProductController {
                         product.getName(),
                         product.getDescription(),
                         product.getPrice(),
-                        product.getStock()
+                        product.getStock(),
+                        product.getCreator().getUsername()
                 ))
                 .toList()
         );
@@ -58,7 +62,7 @@ class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponse> addProduct(@RequestHeader("Authorization") String bearerToken,
-            @RequestBody @Valid ProductRequest request) {
+            @RequestBody @Validated(OnCreate.class) ProductRequest request) {
         String username = this.jwtService.extractUsername(this.jwtService.extractJwt(bearerToken));
 
         Product product = this.productService.addProduct(request, username);
@@ -71,7 +75,7 @@ class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponse> updateProduct(@RequestHeader("Authorization") String bearerToken,
             @PathVariable Long id,
-            @RequestBody @Valid ProductRequest request) {
+            @RequestBody @Validated(OnUpdate.class) ProductRequest request) {
         String username = this.jwtService.extractUsername(this.jwtService.extractJwt(bearerToken));
 
         this.productService.updateProduct(id, request, username);
