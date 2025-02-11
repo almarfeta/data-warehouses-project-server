@@ -28,7 +28,7 @@ public class Product {
     private Integer stock;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "creator_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
     private Account creator;
 
