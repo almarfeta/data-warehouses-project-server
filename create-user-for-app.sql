@@ -12,10 +12,14 @@ SELECT name FROM v$pdbs;
 -- Connect to a PDB
 ALTER SESSION SET CONTAINER = ORCLPDB1;
 
--- Create a Local User on that PDB and give him privileges to create stuff
+-- Create Local Users on that PDB and give them privileges to create stuff
 CREATE USER app_oltp_user IDENTIFIED BY Parola1234;
 ALTER USER app_oltp_user QUOTA UNLIMITED ON USERS;
 GRANT CONNECT, RESOURCE TO app_oltp_user;
 
+CREATE USER app_olap_user IDENTIFIED BY Parola1234;
+ALTER USER app_olap_user QUOTA UNLIMITED ON USERS;
+GRANT CONNECT, RESOURCE TO app_olap_user;
+
 -- Verify
-SELECT username, common FROM dba_users WHERE username = 'APP_OLTP_USER';
+SELECT username, common, profile FROM dba_users WHERE username = 'APP_OLTP_USER' OR USERNAME = 'APP_OLAP_USER';
