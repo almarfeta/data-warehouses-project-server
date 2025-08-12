@@ -1,5 +1,7 @@
 package com.example.data_warehouses_project_server.authentication;
 
+import com.example.data_warehouses_project_server.domain.oltp.entity.TokenEntity;
+import com.example.data_warehouses_project_server.domain.oltp.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
@@ -28,7 +30,7 @@ class LogoutService implements LogoutHandler {
         }
 
         jwtToken = authHeader.substring(BEARER_TOKEN_PREFIX.length());
-        Token storedToken = this.tokenRepository.findByToken(jwtToken)
+        TokenEntity storedToken = this.tokenRepository.findByToken(jwtToken)
                 .orElse(null);
 
         if (storedToken != null) {

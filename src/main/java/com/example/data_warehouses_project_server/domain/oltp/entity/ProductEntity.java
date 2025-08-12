@@ -1,6 +1,5 @@
-package com.example.data_warehouses_project_server.product;
+package com.example.data_warehouses_project_server.domain.oltp.entity;
 
-import com.example.data_warehouses_project_server.authentication.Account;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
@@ -8,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity(name = "product")
 @Table(name = "products")
-public class Product {
+public class ProductEntity {
 
     @Id
     @SequenceGenerator(name = "productSequence", sequenceName = "products_sequence", allocationSize = 1)
@@ -30,12 +29,12 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
-    private Account creator;
+    private AccountEntity creator;
 
-    public Product() {
+    public ProductEntity() {
     }
 
-    Product(String name, String description, BigDecimal price, Integer stock, Account creator) {
+    public ProductEntity(String name, String description, BigDecimal price, Integer stock, AccountEntity creator) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -83,11 +82,11 @@ public class Product {
         this.stock = stock;
     }
 
-    public Account getCreator() {
+    public AccountEntity getCreator() {
         return creator;
     }
 
-    public void setCreator(Account creator) {
+    public void setCreator(AccountEntity creator) {
         this.creator = creator;
     }
 }

@@ -1,5 +1,9 @@
 package com.example.data_warehouses_project_server.authentication;
 
+import com.example.data_warehouses_project_server.domain.oltp.entity.AccountEntity;
+import com.example.data_warehouses_project_server.domain.oltp.repository.AccountRepository;
+import com.example.data_warehouses_project_server.domain.oltp.entity.TokenEntity;
+import com.example.data_warehouses_project_server.domain.oltp.repository.TokenRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,18 +32,18 @@ class AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
-    private void saveUserToken(String jwt, Account user) {
-        this.tokenRepository.save(new Token(jwt, false, false, user));
+    private void saveUserToken(String jwt, AccountEntity user) {
+        this.tokenRepository.save(new TokenEntity(jwt, false, false, user));
     }
 
-    private void revokeAllUserTokens(Account user) {
-        List<Token> validUserTokens = this.tokenRepository.findAllValidTokenByUser(user.getId());
+    private void revokeAllUserTokens(AccountEntity user) {
+        List<TokenEntity> validUserTokens = this.tokenRepository.findAllValidTokenByUser(user.getId());
 
         if (validUserTokens.isEmpty()) {
             return;
         }
 
-        for (Token token : validUserTokens) {
+        for (TokenEntity token : validUserTokens) {
             token.setExpired(true);
             token.setRevoked(true);
         }
@@ -47,7 +51,7 @@ class AuthenticationService {
         this.tokenRepository.saveAll(validUserTokens);
     }
 
-    private String authenticate(Account user, String originalPassword) {
+    private String authenticate(AccountEntity user, String originalPassword) {
         this.authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
@@ -76,7 +80,7 @@ class AuthenticationService {
             throw new UsernameNotFoundException("Passwords don't match");
         }
 
-        Account user = this.accountRepository.save(new Account(
+        AccountEntity user = this.accountRepository.save(new AccountEntity(
                 request.getUsername(),
                 request.getEmail(),
                 this.passwordEncoder.encode(request.getPassword()),
@@ -90,7 +94,7 @@ class AuthenticationService {
 
     @Transactional
     public AuthenticationResponse login(LoginRequest request) {
-        Account user = this.accountRepository.findByUsername(request.getUsername())
+        AccountEntity user = this.accountRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("Username or password wrong"));
 
         String jwt = authenticate(user, request.getPassword());

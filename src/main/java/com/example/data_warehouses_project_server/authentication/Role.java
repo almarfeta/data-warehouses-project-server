@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-enum Role {
+public enum Role {
 
     USER(Collections.emptySet()),
     ADMIN(Set.of(
@@ -35,7 +35,7 @@ enum Role {
         return permissions;
     }
 
-    enum Permission {
+    public enum Permission {
         ADMIN_CREATE("admin:create"),
         ADMIN_READ("admin:read"),
         ADMIN_UPDATE("admin:update"),

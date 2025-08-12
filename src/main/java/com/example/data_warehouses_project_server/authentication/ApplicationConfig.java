@@ -1,5 +1,6 @@
 package com.example.data_warehouses_project_server.authentication;
 
+import com.example.data_warehouses_project_server.domain.oltp.repository.AccountRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

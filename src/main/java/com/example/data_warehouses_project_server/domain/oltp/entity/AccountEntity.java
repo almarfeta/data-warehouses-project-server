@@ -1,6 +1,6 @@
-package com.example.data_warehouses_project_server.authentication;
+package com.example.data_warehouses_project_server.domain.oltp.entity;
 
-import com.example.data_warehouses_project_server.product.Product;
+import com.example.data_warehouses_project_server.authentication.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity(name = "account")
 @Table(name = "accounts")
-public class Account implements UserDetails {
+public class AccountEntity implements UserDetails {
 
     @Id
     @SequenceGenerator(name = "accountSequence", sequenceName = "accounts_sequence", allocationSize = 1)
@@ -32,15 +32,15 @@ public class Account implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "account", orphanRemoval = true)
-    private List<Token> tokens;
+    private List<TokenEntity> tokens;
 
     @OneToMany(mappedBy = "creator", orphanRemoval = true)
-    private List<Product> products;
+    private List<ProductEntity> products;
 
-    public Account() {
+    public AccountEntity() {
     }
 
-    Account(String username, String email, String password, Role role) {
+    public AccountEntity(String username, String email, String password, Role role) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -114,19 +114,19 @@ public class Account implements UserDetails {
         this.role = role;
     }
 
-    public List<Token> getTokens() {
+    public List<TokenEntity> getTokens() {
         return this.tokens;
     }
 
-    public void setTokens(List<Token> tokens) {
+    public void setTokens(List<TokenEntity> tokens) {
         this.tokens = tokens;
     }
 
-    public List<Product> getProducts() {
+    public List<ProductEntity> getProducts() {
         return this.products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductEntity> products) {
         this.products = products;
     }
 }

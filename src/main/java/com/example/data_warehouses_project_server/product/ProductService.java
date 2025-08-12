@@ -1,7 +1,9 @@
 package com.example.data_warehouses_project_server.product;
 
-import com.example.data_warehouses_project_server.authentication.Account;
-import com.example.data_warehouses_project_server.authentication.AccountRepository;
+import com.example.data_warehouses_project_server.domain.oltp.entity.AccountEntity;
+import com.example.data_warehouses_project_server.domain.oltp.entity.ProductEntity;
+import com.example.data_warehouses_project_server.domain.oltp.repository.AccountRepository;
+import com.example.data_warehouses_project_server.domain.oltp.repository.ProductRepository;
 import com.example.data_warehouses_project_server.exception.NotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,12 +22,12 @@ class ProductService {
         this.accountRepository = accountRepository;
     }
 
-    public Product getProductById(Long id) {
+    public ProductEntity getProductById(Long id) {
         return this.productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
     }
 
-    public List<Product> getProducts(String username) {
+    public List<ProductEntity> getProducts(String username) {
         if (username == null) {
             return this.productRepository.findAll();
         }
@@ -34,11 +36,11 @@ class ProductService {
     }
 
     @Transactional
-    public Product addProduct(ProductRequest request, String username) {
-        Account creator = this.accountRepository.findByUsername(username)
+    public ProductEntity addProduct(ProductRequest request, String username) {
+        AccountEntity creator = this.accountRepository.findByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException("Bad credentials"));
 
-        Product newProduct = new Product(
+        ProductEntity newProduct = new ProductEntity(
                 request.getName(),
                 request.getDescription(),
                 request.getPrice(),
@@ -51,10 +53,10 @@ class ProductService {
 
     @Transactional
     public void updateProduct(Long id, ProductRequest request, String username) {
-        Account creator = this.accountRepository.findByUsername(username)
+        AccountEntity creator = this.accountRepository.findByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException("Bad credentials"));
 
-        Product editableProduct = this.productRepository.findById(id)
+        ProductEntity editableProduct = this.productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
         if (!isOwnProduct(creator, editableProduct)) {
@@ -82,10 +84,10 @@ class ProductService {
 
     @Transactional
     public void deleteProduct(Long id, String username) {
-        Account creator = this.accountRepository.findByUsername(username)
+        AccountEntity creator = this.accountRepository.findByUsername(username)
                 .orElseThrow(() -> new BadCredentialsException("Bad credentials"));
 
-        Product deleteableProduct = this.productRepository.findById(id)
+        ProductEntity deleteableProduct = this.productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
         if (!isOwnProduct(creator, deleteableProduct)) {
@@ -95,7 +97,7 @@ class ProductService {
         this.productRepository.delete(deleteableProduct);
     }
 
-    private boolean isOwnProduct(Account account, Product product) {
+    private boolean isOwnProduct(AccountEntity account, ProductEntity product) {
         return account.getId().equals(product.getCreator().getId());
     }
 }

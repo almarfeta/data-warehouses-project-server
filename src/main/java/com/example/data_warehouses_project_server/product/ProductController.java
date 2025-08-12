@@ -1,6 +1,7 @@
 package com.example.data_warehouses_project_server.product;
 
 import com.example.data_warehouses_project_server.authentication.JwtService;
+import com.example.data_warehouses_project_server.domain.oltp.entity.ProductEntity;
 import com.example.data_warehouses_project_server.markers.OnCreate;
 import com.example.data_warehouses_project_server.markers.OnUpdate;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
-        Product product = this.productService.getProductById(id);
+        ProductEntity product = this.productService.getProductById(id);
 
         return ResponseEntity.ok(new ProductResponse(
                 product.getId(),
@@ -45,7 +46,7 @@ class ProductController {
         String username = bearerToken == null ? null :
                 this.jwtService.extractUsername(this.jwtService.extractJwt(bearerToken));
 
-        List<Product> products = this.productService.getProducts(username);
+        List<ProductEntity> products = this.productService.getProducts(username);
 
         return ResponseEntity.ok(products.stream()
                 .map(product -> new ProductResponse(
@@ -65,7 +66,7 @@ class ProductController {
             @RequestBody @Validated(OnCreate.class) ProductRequest request) {
         String username = this.jwtService.extractUsername(this.jwtService.extractJwt(bearerToken));
 
-        Product product = this.productService.addProduct(request, username);
+        ProductEntity product = this.productService.addProduct(request, username);
 
         URI uri = URI.create(DEFAULT_ENDPOINT_MAPPING + "/" + product.getId());
 

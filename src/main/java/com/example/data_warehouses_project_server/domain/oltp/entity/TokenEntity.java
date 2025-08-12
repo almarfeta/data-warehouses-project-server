@@ -1,11 +1,11 @@
-package com.example.data_warehouses_project_server.authentication;
+package com.example.data_warehouses_project_server.domain.oltp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity(name = "token")
 @Table(name = "tokens")
-class Token {
+public class TokenEntity {
 
     @Id
     @SequenceGenerator(name = "tokenSequence", sequenceName = "tokens_sequence", allocationSize = 1)
@@ -25,12 +25,12 @@ class Token {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
     @JsonBackReference
-    private Account account;
+    private AccountEntity account;
 
-    public Token() {
+    public TokenEntity() {
     }
 
-    Token(String token, boolean revoked, boolean expired, Account account) {
+    public TokenEntity(String token, boolean revoked, boolean expired, AccountEntity account) {
         this.token = token;
         this.revoked = revoked;
         this.expired = expired;
@@ -69,11 +69,11 @@ class Token {
         this.expired = expired;
     }
 
-    public Account getAccount() {
+    public AccountEntity getAccount() {
         return account;
     }
 
-    public void setAccount(Account account) {
+    public void setAccount(AccountEntity account) {
         this.account = account;
     }
 }
