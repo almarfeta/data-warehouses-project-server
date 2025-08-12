@@ -67,7 +67,7 @@ class ProductController {
 
         Product product = this.productService.addProduct(request, username);
 
-        URI uri = URI.create("/api/products/" + product.getId());
+        URI uri = URI.create(DEFAULT_ENDPOINT_MAPPING + "/" + product.getId());
 
         return ResponseEntity.created(uri).body(new ProductResponse("Product created successfully"));
     }

@@ -23,7 +23,7 @@ class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody @Valid RegisterRequest request) {
-        return ResponseEntity.created(URI.create("/api/auth/login"))
+        return ResponseEntity.created(URI.create(DEFAULT_ENDPOINT_MAPPING + "/login"))
                 .body(this.authenticationService.register(request));
     }
 
