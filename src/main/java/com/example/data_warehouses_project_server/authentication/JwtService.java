@@ -15,18 +15,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import static com.example.data_warehouses_project_server.authentication.AuthenticationConstants.BEARER_TOKEN_PREFIX;
+
 @Service
 public class JwtService {
+
+    private static final int DAY_MS = 24 * 60 * 60 * 1000;
 
     @Value("${project.jwt.secret-key}")
     private String secretKey;
 
     public String extractJwt(String bearerToken) {
-        if (!bearerToken.startsWith("Bearer ")) {
+        if (!bearerToken.startsWith(BEARER_TOKEN_PREFIX)) {
             throw new IllegalArgumentException("Not a bearer token");
         }
 
-        return bearerToken.substring(7);
+        return bearerToken.substring(BEARER_TOKEN_PREFIX.length());
     }
 
     public String extractUsername(String token) {
@@ -48,7 +52,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // One day
+                .setExpiration(new Date(System.currentTimeMillis() + DAY_MS))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
 
