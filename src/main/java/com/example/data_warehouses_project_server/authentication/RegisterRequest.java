@@ -6,6 +6,14 @@ import jakarta.validation.constraints.NotBlank;
 
 class RegisterRequest {
 
+    @NotBlank(message = "Firstname should not be blank")
+    @JsonProperty("first_name")
+    private String firstName;
+
+    @NotBlank(message = "Surname should nor be blank")
+    @JsonProperty("last_name")
+    private String lastName;
+
     @NotBlank(message = "Username should not be blank")
     private String username;
 
@@ -19,6 +27,22 @@ class RegisterRequest {
     @NotBlank(message = "Password confirmation should not be blank")
     @JsonProperty("password_confirmation")
     private String passwordConfirmation;
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getUsername() {
         return this.username;

@@ -22,11 +22,11 @@ import static com.example.data_warehouses_project_server.authentication.Authenti
 @Component
 class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final JwtPublicService jwtService;
     private final UserDetailsService userDetailsService;
     private final TokenRepository tokenRepository;
 
-    JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService, TokenRepository tokenRepository) {
+    JwtAuthenticationFilter(JwtPublicService jwtService, UserDetailsService userDetailsService, TokenRepository tokenRepository) {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
         this.tokenRepository = tokenRepository;

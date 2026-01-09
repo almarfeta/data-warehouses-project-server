@@ -1,10 +1,11 @@
 package com.example.data_warehouses_project_server.domain.oltp.entity;
 
-import com.example.data_warehouses_project_server.authentication.Role;
+import com.example.data_warehouses_project_server.domain.oltp.constant.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,38 +14,38 @@ import java.util.List;
 public class AccountEntity implements UserDetails {
 
     @Id
-    @SequenceGenerator(name = "accountSequence", sequenceName = "accounts_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accountSequence")
-    @Column(updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "username", nullable = false, unique = true, length = 100)
     private String username;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "role", nullable = false, length = 50)
     private Role role;
 
-    @OneToMany(mappedBy = "account", orphanRemoval = true)
-    private List<TokenEntity> tokens;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id", unique = true)
+    private CustomerEntity customer;
 
-    @OneToMany(mappedBy = "creator", orphanRemoval = true)
-    private List<ProductEntity> products;
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    private List<TokenEntity> tokens = new ArrayList<>();
 
     public AccountEntity() {
     }
 
-    public AccountEntity(String username, String email, String password, Role role) {
+    public AccountEntity(String username, String email, String password, Role role, CustomerEntity customer) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.customer = customer;
     }
 
     @Override
@@ -83,7 +84,7 @@ public class AccountEntity implements UserDetails {
     }
 
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -95,7 +96,7 @@ public class AccountEntity implements UserDetails {
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
@@ -107,26 +108,26 @@ public class AccountEntity implements UserDetails {
     }
 
     public Role getRole() {
-        return this.role;
+        return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
     }
 
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customer) {
+        this.customer = customer;
+    }
+
     public List<TokenEntity> getTokens() {
-        return this.tokens;
+        return tokens;
     }
 
     public void setTokens(List<TokenEntity> tokens) {
         this.tokens = tokens;
-    }
-
-    public List<ProductEntity> getProducts() {
-        return this.products;
-    }
-
-    public void setProducts(List<ProductEntity> products) {
-        this.products = products;
     }
 }

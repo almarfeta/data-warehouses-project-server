@@ -1,8 +1,11 @@
 package com.example.data_warehouses_project_server.authentication;
 
+import com.example.data_warehouses_project_server.domain.oltp.constant.Role;
 import com.example.data_warehouses_project_server.domain.oltp.entity.AccountEntity;
-import com.example.data_warehouses_project_server.domain.oltp.repository.AccountRepository;
+import com.example.data_warehouses_project_server.domain.oltp.entity.CustomerEntity;
 import com.example.data_warehouses_project_server.domain.oltp.entity.TokenEntity;
+import com.example.data_warehouses_project_server.domain.oltp.repository.AccountRepository;
+import com.example.data_warehouses_project_server.domain.oltp.repository.CustomerRepository;
 import com.example.data_warehouses_project_server.domain.oltp.repository.TokenRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -18,15 +22,17 @@ class AuthenticationService {
 
     private final AccountRepository accountRepository;
     private final TokenRepository tokenRepository;
+    private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+    private final JwtPublicService jwtService;
     private final AuthenticationManager authenticationManager;
 
     AuthenticationService(AccountRepository accountRepository, TokenRepository tokenRepository,
-                                 PasswordEncoder passwordEncoder, JwtService jwtService,
-                                 AuthenticationManager authenticationManager) {
+                          CustomerRepository customerRepository, PasswordEncoder passwordEncoder,
+                          JwtPublicService jwtService, AuthenticationManager authenticationManager) {
         this.accountRepository = accountRepository;
         this.tokenRepository = tokenRepository;
+        this.customerRepository = customerRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.authenticationManager = authenticationManager;
@@ -80,12 +86,21 @@ class AuthenticationService {
             throw new UsernameNotFoundException("Passwords don't match");
         }
 
+        CustomerEntity customer = this.customerRepository.save(new CustomerEntity(
+                request.getFirstName(),
+                request.getLastName(),
+                null,
+                null,
+                OffsetDateTime.now()
+        ));
+
         AccountEntity user = this.accountRepository.save(new AccountEntity(
                 request.getUsername(),
                 request.getEmail(),
                 this.passwordEncoder.encode(request.getPassword()),
-                Role.USER)
-        );
+                Role.USER,
+                customer
+        ));
 
         String jwt = authenticate(user, request.getPassword());
 

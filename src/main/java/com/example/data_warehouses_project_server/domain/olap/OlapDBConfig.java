@@ -37,7 +37,7 @@ public class OlapDBConfig {
     ) {
 
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        properties.put("hibernate.hbm2ddl.auto", "none");
 
         return builder.dataSource(olapDataSource)
                 .properties(properties)

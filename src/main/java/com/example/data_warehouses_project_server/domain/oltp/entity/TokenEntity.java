@@ -1,6 +1,5 @@
 package com.example.data_warehouses_project_server.domain.oltp.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity(name = "token")
@@ -8,23 +7,20 @@ import jakarta.persistence.*;
 public class TokenEntity {
 
     @Id
-    @SequenceGenerator(name = "tokenSequence", sequenceName = "tokens_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tokenSequence")
-    @Column(updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "token", nullable = false, length = 512)
     private String token;
 
-    @Column(nullable = false)
+    @Column(name = "revoked", nullable = false)
     private boolean revoked;
 
-    @Column(nullable = false)
+    @Column(name = "expired", nullable = false)
     private boolean expired;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
-    @JsonBackReference
+    @JoinColumn(name = "account_id", nullable = false)
     private AccountEntity account;
 
     public TokenEntity() {

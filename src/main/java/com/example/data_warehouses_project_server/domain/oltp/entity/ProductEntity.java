@@ -1,45 +1,60 @@
 package com.example.data_warehouses_project_server.domain.oltp.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.example.data_warehouses_project_server.domain.oltp.constant.ProductStatus;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "product")
 @Table(name = "products")
 public class ProductEntity {
 
     @Id
-    @SequenceGenerator(name = "productSequence", sequenceName = "products_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "productSequence")
-    @Column(updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "sku", nullable = false, unique = true, length = 100)
+    private String sku;
 
+    @Column(name = "product_name", nullable = false)
+    private String productName;
+
+    @Lob
+    @Column(name = "description")
     private String description;
 
-    @Column(nullable = false)
-    private BigDecimal price;
-
-    @Column(nullable = false)
-    private Integer stock;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, length = 50)
+    private ProductStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", referencedColumnName = "id", nullable = false)
-    @JsonBackReference
-    private AccountEntity creator;
+    @JoinColumn(name = "brand_id", nullable = false)
+    private BrandEntity brand;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
+
+    @OneToOne(mappedBy = "product")
+    private InventoryEntity inventory;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<PriceEntity> prices = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<OrderItemEntity> orderItems = new ArrayList<>();
 
     public ProductEntity() {
     }
 
-    public ProductEntity(String name, String description, BigDecimal price, Integer stock, AccountEntity creator) {
-        this.name = name;
+    public ProductEntity(String sku, String productName, String description, ProductStatus status, BrandEntity brand, CategoryEntity category) {
+        this.sku = sku;
+        this.productName = productName;
         this.description = description;
-        this.price = price;
-        this.stock = stock;
-        this.creator = creator;
+        this.status = status;
+        this.brand = brand;
+        this.category = category;
     }
 
     public Long getId() {
@@ -50,12 +65,20 @@ public class ProductEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSku() {
+        return sku;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getDescription() {
@@ -66,27 +89,51 @@ public class ProductEntity {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public ProductStatus getStatus() {
+        return status;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setStatus(ProductStatus status) {
+        this.status = status;
     }
 
-    public Integer getStock() {
-        return stock;
+    public BrandEntity getBrand() {
+        return brand;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
+    public void setBrand(BrandEntity brand) {
+        this.brand = brand;
     }
 
-    public AccountEntity getCreator() {
-        return creator;
+    public CategoryEntity getCategory() {
+        return category;
     }
 
-    public void setCreator(AccountEntity creator) {
-        this.creator = creator;
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
+
+    public InventoryEntity getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(InventoryEntity inventory) {
+        this.inventory = inventory;
+    }
+
+    public List<PriceEntity> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(List<PriceEntity> prices) {
+        this.prices = prices;
+    }
+
+    public List<OrderItemEntity> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItemEntity> orderItems) {
+        this.orderItems = orderItems;
     }
 }

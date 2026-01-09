@@ -1,4 +1,4 @@
-package com.example.data_warehouses_project_server.authentication;
+package com.example.data_warehouses_project_server.domain.oltp.constant;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

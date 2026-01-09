@@ -36,7 +36,7 @@ public class OltpDBConfig {
     ) {
 
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto", "create-drop");
+        properties.put("hibernate.hbm2ddl.auto", "none");
 
         return builder.dataSource(dataSource)
                 .properties(properties)

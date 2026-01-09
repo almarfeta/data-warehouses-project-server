@@ -18,7 +18,7 @@ import java.util.function.Function;
 import static com.example.data_warehouses_project_server.authentication.AuthenticationConstants.BEARER_TOKEN_PREFIX;
 
 @Service
-public class JwtService {
+public class JwtPublicService {
 
     private static final int DAY_MS = 24 * 60 * 60 * 1000;
 

@@ -1,6 +1,6 @@
 package com.example.data_warehouses_project_server.product;
 
-import com.example.data_warehouses_project_server.markers.OnCreate;
+import com.example.data_warehouses_project_server.marker.OnCreate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
