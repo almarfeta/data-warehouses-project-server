@@ -38,7 +38,7 @@ class AccountAdminController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAccount(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteAccount(@PathVariable("id") Long id) {
         this.accountService.deleteAccount(id);
         return ResponseEntity.noContent().build();
     }
@@ -69,7 +69,7 @@ class AccountAdminController {
     }
 
     @DeleteMapping("/address/{addressId}")
-    public ResponseEntity<?> deleteAddress(@PathVariable("addressId") Long id) {
+    public ResponseEntity<Void> deleteAddress(@PathVariable("addressId") Long id) {
         this.accountService.deleteAddress(id);
         return ResponseEntity.noContent().build();
     }
