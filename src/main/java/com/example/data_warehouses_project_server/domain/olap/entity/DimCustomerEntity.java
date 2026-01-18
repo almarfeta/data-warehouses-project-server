@@ -2,8 +2,8 @@ package com.example.data_warehouses_project_server.domain.olap.entity;
 
 import jakarta.persistence.*;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Entity(name = "dimCustomer")
 @Table(name = "dim_customer")
@@ -30,12 +30,12 @@ public class DimCustomerEntity {
     private LocalDate dateOfBirth;
 
     @Column(name = "created_at")
-    private Instant createdAt;
+    private OffsetDateTime createdAt;
 
     public DimCustomerEntity() {
     }
 
-    public DimCustomerEntity(Long customerId, String username, String email, String fullName, LocalDate dateOfBirth, Instant createdAt) {
+    public DimCustomerEntity(Long customerId, String username, String email, String fullName, LocalDate dateOfBirth, OffsetDateTime createdAt) {
         this.customerId = customerId;
         this.username = username;
         this.email = email;
@@ -92,11 +92,11 @@ public class DimCustomerEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Instant getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

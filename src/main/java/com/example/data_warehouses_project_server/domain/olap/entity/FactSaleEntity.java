@@ -23,7 +23,7 @@ public class FactSaleEntity {
     private BigDecimal unitPrice;
 
     @Column(name = "quantity")
-    private Long quantity;
+    private Integer quantity;
 
     @Column(name = "status", length = 50)
     private String status;
@@ -54,7 +54,7 @@ public class FactSaleEntity {
     public FactSaleEntity() {
     }
 
-    public FactSaleEntity(Long orderId, Long orderItemId, BigDecimal unitPrice, Long quantity, String status, String shippedBy,
+    public FactSaleEntity(Long orderId, Long orderItemId, BigDecimal unitPrice, Integer quantity, String status, String shippedBy,
                           DimTimeEntity time, DimLocationEntity location, DimCustomerEntity customer, DimProductEntity product, DimPaymentMethodEntity paymentMethod) {
         this.orderId = orderId;
         this.orderItemId = orderItemId;
@@ -101,11 +101,11 @@ public class FactSaleEntity {
         this.unitPrice = unitPrice;
     }
 
-    public Long getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
