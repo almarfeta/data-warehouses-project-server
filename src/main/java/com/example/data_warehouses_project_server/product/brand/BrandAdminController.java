@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping(BrandAdminController.DEFAULT_ENDPOINT_MAPPING)
 class BrandAdminController {
 
-    static final String DEFAULT_ENDPOINT_MAPPING = "/api/brand";
+    static final String DEFAULT_ENDPOINT_MAPPING = "/api/admin/brand";
 
     private final BrandService brandService;
 

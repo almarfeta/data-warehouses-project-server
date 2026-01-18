@@ -30,7 +30,7 @@ class BrandService {
 
     @Transactional
     Long createBrand(CreateBrandForm form) {
-        if (this.brandRepository.findByBrandName(form.getName()).isPresent()) {
+        if (this.brandRepository.existsByBrandName(form.getName())) {
             throw new BadRequestException("Brand already exists");
         }
 
@@ -38,7 +38,7 @@ class BrandService {
     }
 
     @Transactional
-    void deleteBrand(Long id) {
+    void deleteBrand(Long id) { // TODO: This should not be possible if there are products with this brand
         this.brandRepository.deleteById(id);
     }
 }

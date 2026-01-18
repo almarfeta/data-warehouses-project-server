@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<InventoryEntity, Long> {
+
+    void deleteAllByProductId(Long productId);
 }

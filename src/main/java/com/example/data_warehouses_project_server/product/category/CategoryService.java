@@ -7,7 +7,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 class CategoryService {
@@ -30,20 +29,18 @@ class CategoryService {
 
     @Transactional
     Long createCategory(CreateCategoryForm form) {
-        Optional<CategoryEntity> parentCategory = this.categoryRepository.findById(form.getParentCategoryId());
+        CategoryEntity parentCategory = null;
 
-        if (parentCategory.isEmpty()) {
-            throw new NotFoundException("Parent category not found");
+        if (form.getParentCategoryId() != null) {
+            parentCategory = this.categoryRepository.findById(form.getParentCategoryId())
+                    .orElseThrow(() -> new NotFoundException("Parent category not found"));
         }
 
-        return this.categoryRepository.save(new CategoryEntity(
-                form.getName(),
-                parentCategory.get()
-        )).getId();
+        return this.categoryRepository.save(new CategoryEntity(form.getName(), parentCategory)).getId();
     }
 
     @Transactional
-    void deleteCategory(Long id) {
+    void deleteCategory(Long id) { // TODO: Should not be able to delete a category if there are products assigned to it is a parent category
         this.categoryRepository.deleteById(id);
     }
 }

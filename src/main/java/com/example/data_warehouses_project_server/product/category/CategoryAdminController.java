@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping(CategoryAdminController.DEFAULT_ENDPOINT_MAPPING)
 class CategoryAdminController {
 
-    static final String DEFAULT_ENDPOINT_MAPPING = "/api/category";
+    static final String DEFAULT_ENDPOINT_MAPPING = "/api/admin/category";
 
     private final CategoryService categoryService;
 
