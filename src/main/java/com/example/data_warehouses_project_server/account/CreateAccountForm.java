@@ -1,10 +1,11 @@
 package com.example.data_warehouses_project_server.account;
 
 import com.example.data_warehouses_project_server.domain.oltp.constant.Role;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -23,16 +24,14 @@ class CreateAccountForm {
     @NotNull(message = "Role should not be null")
     private Role role;
 
-    @JsonProperty("first_name")
     private String firstName;
 
-    @JsonProperty("last_name")
     private String lastName;
 
-    @JsonProperty("date_of_birth")
+    @Past
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfBirth;
 
-    @JsonProperty("phone_number")
     private String phoneNumber;
 
     public String getUsername() {

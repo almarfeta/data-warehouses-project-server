@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping(AccountAdminController.DEFAULT_ENDPOINT_MAPPING)
 class AccountAdminController {
 
-    static final String DEFAULT_ENDPOINT_MAPPING = "/api/account";
+    static final String DEFAULT_ENDPOINT_MAPPING = "/api/admin/account";
 
     private final AccountService accountService;
 

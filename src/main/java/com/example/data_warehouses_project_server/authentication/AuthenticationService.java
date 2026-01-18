@@ -7,6 +7,7 @@ import com.example.data_warehouses_project_server.domain.oltp.entity.TokenEntity
 import com.example.data_warehouses_project_server.domain.oltp.repository.AccountRepository;
 import com.example.data_warehouses_project_server.domain.oltp.repository.CustomerRepository;
 import com.example.data_warehouses_project_server.domain.oltp.repository.TokenRepository;
+import com.example.data_warehouses_project_server.exception.BadRequestException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,9 +28,14 @@ class AuthenticationService {
     private final JwtPublicService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    AuthenticationService(AccountRepository accountRepository, TokenRepository tokenRepository,
-                          CustomerRepository customerRepository, PasswordEncoder passwordEncoder,
-                          JwtPublicService jwtService, AuthenticationManager authenticationManager) {
+    AuthenticationService(
+            AccountRepository accountRepository,
+            TokenRepository tokenRepository,
+            CustomerRepository customerRepository,
+            PasswordEncoder passwordEncoder,
+            JwtPublicService jwtService,
+            AuthenticationManager authenticationManager
+    ) {
         this.accountRepository = accountRepository;
         this.tokenRepository = tokenRepository;
         this.customerRepository = customerRepository;
@@ -74,16 +80,12 @@ class AuthenticationService {
 
     @Transactional
     public AuthenticationResponse register(RegisterRequest request) {
-        if (this.accountRepository.findByUsername(request.getUsername()).isPresent()) {
-            throw new UsernameNotFoundException("Username taken");
-        }
-
-        if (this.accountRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new UsernameNotFoundException("Email taken");
+        if (this.accountRepository.existsByUsernameOrEmail(request.getUsername(), request.getEmail())) {
+            throw new BadRequestException("Username or email already in use");
         }
 
         if (!request.getPassword().equals(request.getPasswordConfirmation())) {
-            throw new UsernameNotFoundException("Passwords don't match");
+            throw new BadRequestException("Passwords don't match");
         }
 
         CustomerEntity customer = this.customerRepository.save(new CustomerEntity(

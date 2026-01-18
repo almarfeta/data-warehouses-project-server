@@ -1,6 +1,5 @@
 package com.example.data_warehouses_project_server.account;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 
 class CreateAddressForm {
@@ -18,7 +17,6 @@ class CreateAddressForm {
     private String country;
 
     @NotBlank(message = "Postal code should not be blank")
-    @JsonProperty("postal_code")
     private String postalCode;
 
     public String getStreet() {

@@ -18,4 +18,6 @@ public interface TokenRepository extends JpaRepository<TokenEntity, Long> {
     List<TokenEntity> findAllValidTokenByUser(Long userId);
 
     Optional<TokenEntity> findByToken(String tokenEntity);
+
+    void deleteAllByAccountId(Long accountId);
 }
