@@ -1,0 +1,18 @@
+ALTER TABLE fact_sales
+    MODIFY CONSTRAINT fk_fs_time RELY DISABLE NOVALIDATE;
+
+ALTER TABLE fact_sales
+    MODIFY CONSTRAINT fk_fs_location RELY DISABLE NOVALIDATE;
+
+ALTER TABLE fact_sales
+    MODIFY CONSTRAINT fk_fs_customer RELY DISABLE NOVALIDATE;
+
+ALTER TABLE fact_sales
+    MODIFY CONSTRAINT fk_fs_product RELY DISABLE NOVALIDATE;
+
+ALTER TABLE fact_sales
+    MODIFY CONSTRAINT fk_fs_payment_method RELY DISABLE NOVALIDATE;
+
+
+-- Verify
+SELECT * FROM user_constraints;
