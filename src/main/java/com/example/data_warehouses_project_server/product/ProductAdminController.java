@@ -44,7 +44,7 @@ class ProductAdminController {
     }
 
     @PatchMapping("/{productId}/stock")
-    public ResponseEntity<Void> updateStock(@PathVariable("productId") Long id, @RequestParam Integer stock) {
+    public ResponseEntity<Void> updateStock(@PathVariable("productId") Long id, @RequestParam("stock") Integer stock) {
         this.productService.updateStock(id, stock);
         return ResponseEntity.noContent().build();
     }

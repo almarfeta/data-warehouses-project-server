@@ -45,7 +45,7 @@ class OrderAdminController {
     }
 
     @PatchMapping("/{orderId}/status")
-    public ResponseEntity<Void> updateStatus(@PathVariable("orderId") Long id, @RequestParam OrderStatus status) {
+    public ResponseEntity<Void> updateStatus(@PathVariable("orderId") Long id, @RequestParam("status") OrderStatus status) {
         this.orderService.updateStatus(id, status);
         return ResponseEntity.noContent().build();
     }
@@ -53,8 +53,8 @@ class OrderAdminController {
     @PatchMapping("/{orderId}/delivery")
     public ResponseEntity<Void> updateDelivery(
             @PathVariable("orderId") Long id,
-            @RequestParam String shipper,
-            @RequestParam String awb
+            @RequestParam("shipper") String shipper,
+            @RequestParam("awb") String awb
     ) {
         this.orderService.updateDelivery(id, shipper, awb);
         return ResponseEntity.noContent().build();

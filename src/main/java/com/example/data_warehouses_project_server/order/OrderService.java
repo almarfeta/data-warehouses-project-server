@@ -1,15 +1,24 @@
 package com.example.data_warehouses_project_server.order;
 
-import com.example.data_warehouses_project_server.domain.oltp.constant.OrderStatus;
-import com.example.data_warehouses_project_server.domain.oltp.entity.*;
-import com.example.data_warehouses_project_server.domain.oltp.repository.*;
-import com.example.data_warehouses_project_server.exception.NotFoundException;
-import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.example.data_warehouses_project_server.domain.oltp.constant.OrderStatus;
+import com.example.data_warehouses_project_server.domain.oltp.entity.AddressEntity;
+import com.example.data_warehouses_project_server.domain.oltp.entity.DeliveryEntity;
+import com.example.data_warehouses_project_server.domain.oltp.entity.OrderEntity;
+import com.example.data_warehouses_project_server.domain.oltp.entity.OrderItemEntity;
+import com.example.data_warehouses_project_server.domain.oltp.entity.PriceEntity;
+import com.example.data_warehouses_project_server.domain.oltp.repository.AddressRepository;
+import com.example.data_warehouses_project_server.domain.oltp.repository.DeliveryRepository;
+import com.example.data_warehouses_project_server.domain.oltp.repository.OrderItemRepository;
+import com.example.data_warehouses_project_server.domain.oltp.repository.OrderRepository;
+import com.example.data_warehouses_project_server.domain.oltp.repository.PriceRepository;
+import com.example.data_warehouses_project_server.exception.NotFoundException;
+
+import jakarta.transaction.Transactional;
 
 @Service
 class OrderService {
@@ -36,7 +45,7 @@ class OrderService {
 
     List<OrderResponse> getAllOrders() {
         return this.orderRepository.findAllWithDeliveryAndOrderItems().stream()
-                .map(OrderResponse::fromEntity).collect(Collectors.toList());
+                .map(OrderResponse::fromEntity).toList();
     }
 
     OrderResponse getOrderById(Long id) {

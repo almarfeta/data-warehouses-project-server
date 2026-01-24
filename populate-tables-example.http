@@ -1,0 +1,336 @@
+### Login to admin account
+POST http://localhost:8081/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "Parola1234"
+}
+
+### Create cusomter 1
+POST http://localhost:8081/api/admin/account
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "username": "john.doe",
+  "email": "john.doe@gmail.com",
+  "password": "Parola1234",
+  "role": "USER",
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateOfBirth": "1997-08-12",
+  "phoneNumber": "123456789"
+}
+
+### Create cusomter 1 address 1
+POST http://localhost:8081/api/admin/account/2/address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "street": "Principala",
+  "city": "Medgidia",
+  "region": "Constanta",
+  "country": "Romania",
+  "postalCode": "000111"
+}
+
+### Create cusomter 1 address 2
+POST http://localhost:8081/api/admin/account/2/address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "street": "Secundara",
+  "city": "Constanta",
+  "region": "Constanta",
+  "country": "Romania",
+  "postalCode": "111222"
+}
+
+### Create cusomter 2
+POST http://localhost:8081/api/admin/account
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "username": "paul.atreides",
+  "email": "paul.atreides@yahoo.com",
+  "password": "Parola1234",
+  "role": "USER",
+  "firstName": "Paul",
+  "lastName": "Atreides",
+  "dateOfBirth": "1998-09-13",
+  "phoneNumber": "345678912"
+}
+
+### Create cusomter 2 address
+POST http://localhost:8081/api/admin/account/3/address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "street": "Teilor",
+  "city": "Bucharest",
+  "region": "Bucharest",
+  "country": "Romania",
+  "postalCode": "222333"
+}
+
+### Create cusomter 3
+POST http://localhost:8081/api/admin/account
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "username": "dominic.toretto",
+  "email": "dominic.toretto@gmail.com",
+  "password": "Parola1234",
+  "role": "USER",
+  "firstName": "Dominic",
+  "lastName": "Toretto",
+  "dateOfBirth": "1999-10-14",
+  "phoneNumber": "678912345"
+}
+
+### Create cusomter 3 address
+POST http://localhost:8081/api/admin/account/4/address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "street": "Brazilor",
+  "city": "Slatina",
+  "region": "Olt",
+  "country": "Romania",
+  "postalCode": "333444"
+}
+
+### Create brand 1
+POST http://localhost:8081/api/admin/brand
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "name": "Adidas"
+}
+
+### Create brand 2
+POST http://localhost:8081/api/admin/brand
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "name": "Nike"
+}
+
+### Create brand 3
+POST http://localhost:8081/api/admin/brand
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "name": "Puma"
+}
+
+### Create category 1 (root)
+POST http://localhost:8081/api/admin/category
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "name": "Sport"
+}
+
+### Create category 2 (parent)
+POST http://localhost:8081/api/admin/category
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "name": "Shoes",
+  "parentCategoryId": 1
+}
+
+### Create category 3 (child)
+POST http://localhost:8081/api/admin/category
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "name": "Men",
+  "parentCategoryId": 2
+}
+
+### Create product 1
+POST http://localhost:8081/api/admin/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "brandId": 1,
+  "categoryId": 3,
+  "sku": "123456789",
+  "name": "Adidas UltraBoost",
+  "description": "Super light sport shoes",
+  "status": "ACTIVE",
+  "stock": 100,
+  "defaultPrice": 823.12,
+  "priceCurrency": "RON"
+}
+
+### Create product 2
+POST http://localhost:8081/api/admin/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "brandId": 2,
+  "categoryId": 3,
+  "sku": "456789123",
+  "name": "Nike Air Force 1",
+  "description": "Most iconic sport shoes",
+  "status": "ACTIVE",
+  "stock": 70,
+  "defaultPrice": 115.00,
+  "priceCurrency": "USD"
+}
+
+### Create product 3
+POST http://localhost:8081/api/admin/product
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "brandId": 3,
+  "categoryId": 3,
+  "sku": "789123456",
+  "name": "Puma x Formula 1",
+  "description": "Lewis Hamilton's shoes",
+  "status": "ACTIVE",
+  "stock": 20,
+  "defaultPrice": 230.00,
+  "priceCurrency": "EUR"
+}
+
+### Create order 1
+POST http://localhost:8081/api/admin/order
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "customerId": 1,
+  "addressId": 1,
+  "paymentMethod": "CARD",
+  "orderItems": [
+    {
+      "productId": 1,
+      "priceId": 1,
+      "quantity": 2
+    }
+  ]
+}
+
+### Update order 1 status
+PATCH http://localhost:8081/api/admin/order/1/status?status=ACCEPTED
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Update order 1 delivery
+PATCH http://localhost:8081/api/admin/order/1/delivery?shipper=Sameday&awb=1234567
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Create order 2
+POST http://localhost:8081/api/admin/order
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "customerId": 2,
+  "addressId": 3,
+  "paymentMethod": "CARD",
+  "orderItems": [
+    {
+      "productId": 1,
+      "priceId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "priceId": 2,
+      "quantity": 1
+    }
+  ]
+}
+
+### Update order 2 status
+PATCH http://localhost:8081/api/admin/order/2/status?status=ACCEPTED
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Update order 2 delivery
+PATCH http://localhost:8081/api/admin/order/2/delivery?shipper=Sameday&awb=2345671
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Create order 3
+POST http://localhost:8081/api/admin/order
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "customerId": 3,
+  "addressId": 4,
+  "paymentMethod": "CARD",
+  "orderItems": [
+    {
+      "productId": 3,
+      "priceId": 3,
+      "quantity": 1
+    }
+  ]
+}
+
+### Update order 3 status
+PATCH http://localhost:8081/api/admin/order/3/status?status=ACCEPTED
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Update order 3 delivery
+PATCH http://localhost:8081/api/admin/order/3/delivery?shipper=Sameday&awb=3456712
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Create order 4
+POST http://localhost:8081/api/admin/order
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+{
+  "customerId": 3,
+  "addressId": 4,
+  "paymentMethod": "CASH",
+  "orderItems": [
+    {
+      "productId": 1,
+      "priceId": 1,
+      "quantity": 1
+    }
+  ]
+}
+
+### Update order 4 status
+PATCH http://localhost:8081/api/admin/order/4/status?status=ACCEPTED
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Update order 4 delivery
+PATCH http://localhost:8081/api/admin/order/4/delivery?shipper=Cargus&awb=4567123
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Trigger OLAP pipeline
+POST http://localhost:8081/api/admin/etl/run?
+    populateDimTime=true&
+    populateDimPaymentMethod=true&
+    startDate=2026-01-01&
+    endDate=2026-04-01
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
+
+### Trigger OLAP pipeline 2nd time (if needed)
+POST http://localhost:8081/api/admin/etl/run
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTc2OTE4NjE4OCwiZXhwIjoxNzY5MjcyNTg4fQ.S5ARtLOBGGhNELicphbQpHBbPTDdTqjKs3GhZ2L09i0
