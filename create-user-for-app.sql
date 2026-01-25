@@ -20,6 +20,8 @@ GRANT CONNECT, RESOURCE TO app_oltp_user;
 CREATE USER app_olap_user IDENTIFIED BY Parola1234;
 ALTER USER app_olap_user QUOTA UNLIMITED ON USERS;
 GRANT CONNECT, RESOURCE TO app_olap_user;
+GRANT CREATE DIMENSION TO app_olap_user;
+GRANT EXECUTE ON SYS.DBMS_DIMENSION TO app_olap_user; -- To execute this connect with sys like so: sqlplus sys/password@localhost:1521/SID as sysdba
 
 -- Verify
 SELECT username, common, profile FROM dba_users WHERE username = 'APP_OLTP_USER' OR USERNAME = 'APP_OLAP_USER';
