@@ -5,6 +5,7 @@ CREATE BITMAP INDEX idx_fs_status
     ON fact_sales (status);
 
 -- Verify TODO: Modify this query to also include the second index (if possible)
+-- TODO: Afeter adding the partition, the result might change here, so verify and adjust
 EXPLAIN PLAN FOR
 SELECT
     fs.status,
