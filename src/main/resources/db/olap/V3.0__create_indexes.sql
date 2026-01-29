@@ -4,14 +4,18 @@ CREATE BITMAP INDEX idx_month_year
 CREATE BITMAP INDEX idx_fs_status
     ON fact_sales (status);
 
--- Verify TODO: Modify this query to also include the second index (if possible)
--- TODO: Afeter adding the partition, the result might change here, so verify and adjust
 EXPLAIN PLAN FOR
 SELECT
-    fs.status,
-    SUM(fs.unit_price * fs.quantity) AS total_sales
-FROM fact_sales fs
-WHERE fs.status = 'ACCEPTED'
-GROUP BY fs.status;
+    t.year,
+    t.month_name,
+    COUNT(*) AS number_of_sales,
+    SUM(f.unit_price * f.quantity) AS total_sales
+FROM fact_sales f
+JOIN dim_time t ON f.time_key = t.time_key
+WHERE t.year = 2026
+  AND t.month = 1
+  AND f.status = 'ACCEPTED'
+GROUP BY t.year, t.month, t.month_name
+ORDER BY t.year, t.month;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY);
