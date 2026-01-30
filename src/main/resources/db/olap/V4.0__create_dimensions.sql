@@ -27,10 +27,10 @@ BEGIN
 END;
 /
 -- See validation results
-SELECT *
-FROM DIMENSION_EXCEPTIONS;
+SELECT * FROM DIMENSION_EXCEPTIONS;
 
--- Helper command to list all dimension views
-SELECT view_name
-FROM all_views
-WHERE view_name LIKE '%DIMENSION%';
+-- Helper command to list all dimensions
+select * from USER_DIMENSIONS;
+
+-- Compile dimension if needed
+ALTER DIMENSION location_dim COMPILE;

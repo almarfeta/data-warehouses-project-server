@@ -4,6 +4,8 @@ CREATE BITMAP INDEX idx_month_year
 CREATE BITMAP INDEX idx_fs_status
     ON fact_sales (status);
 
+SELECT * FROM user_indexes WHERE index_name IN ('IDX_MONTH_YEAR', 'IDX_FS_STATUS');
+
 EXPLAIN PLAN FOR
 SELECT /*+ INDEX_COMBINE(f idx_fs_status) */
     p.payment_method,

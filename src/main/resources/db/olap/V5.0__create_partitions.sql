@@ -16,6 +16,8 @@ ALTER TABLE dim_location
         PARTITION p_other VALUES (DEFAULT)
         );
 
+select * from USER_TAB_PARTITIONS;
+
 EXPLAIN PLAN FOR
 SELECT
     l.country,
